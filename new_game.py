@@ -29,6 +29,17 @@ class TargetZone:
         pygame.draw.rect(surface, GREEN, (self.x, self.y, self.width, self.height))
 
 
+class GameZone:
+    def __init__(self, width):
+        self.x = 0
+        self.width = width
+        self.height = 20
+        self.y = 90
+
+    def draw(self, surface):
+        pygame.draw.rect(surface, BLACK, (self.x, self.y, self.width, self.height))
+
+
 class LightBar:
     def __init__(self, width):
         self.x = 0
@@ -54,6 +65,7 @@ class LightBar:
 class Game:
     def __init__(self):
         self.light = LightBar(WIDTH)
+        self.gameZone = GameZone(WIDTH)
         self.reset_target()
         self.score = 0
         self.rounds = 0
@@ -75,6 +87,7 @@ class Game:
 
     def draw(self, surface):
         surface.fill(WHITE)
+        self.gameZone.draw(surface)
         self.target.draw(surface)
         self.light.draw(surface)
 
@@ -91,6 +104,7 @@ class Game:
                 self.score += 1
             if self.rounds < self.max_rounds:
                 self.reset_target()
+                self.light.speed = (4*(self.score**2) + 250) # Kurve damit der Ball schneller wird
             else:
                 self.running = False
 
