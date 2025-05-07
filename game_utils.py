@@ -109,6 +109,23 @@ class Game:
             else:
                 self.running = False
 
+class Gameover:
+    def __init__(self, endzeit, rounds, font):
+        self.endzeit = endzeit
+        self.rounds = rounds
+        self.font = font
+
+    def show(self, screen):
+        screen.fill(WHITE)
+        end_text = self.font.render(f"Game Over!", True, BLUE)
+        zeit_text = self.font.render(f'Benötigte Zeit: {self.endzeit}S', True, BLUE)
+        runden_text = self.font.render(f'Anzahl benötigter Runden: {self.rounds} Runden', True, BLUE)
+        screen.blit(end_text, (0, screen.get_height() // 2 - end_text.get_height() - 10))
+        screen.blit(zeit_text, (0, screen.get_height() // 2 - (zeit_text.get_height() // 2)))
+        screen.blit(runden_text, (0, screen.get_height() // 2 + 10))
+        pygame.display.flip()
+        pygame.time.wait(3000)
+
 
 # --- Hauptspielschleife ---
 

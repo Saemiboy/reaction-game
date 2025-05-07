@@ -10,13 +10,6 @@ clock = pygame.time.Clock()
 FONT = pygame.font.SysFont(None, 36)
 FPS = 60
 
-# --- Farben ---
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-GREEN = (50, 255, 50)
-RED = (255, 0, 0)
-BLUE = (0, 100, 255)
-
 def spiel():
     game = game_utils.Game(WIDTH, HEIGHT, FONT)
     while game.running:
@@ -32,15 +25,8 @@ def spiel():
         pygame.display.flip()
 
     # Spielende
-    screen.fill(WHITE)
-    end_text = FONT.render(f"Game Over!", True, BLUE)
-    zeit_text = FONT.render(f'Benötigte Zeit: {game.vergangeneZeit}S', True, BLUE)
-    runden_text = FONT.render(f'Anzahl benötigter Runden: {game.rounds} Runden', True, BLUE)
-    screen.blit(end_text, (0, HEIGHT // 2 - end_text.get_height() - 10))
-    screen.blit(zeit_text, (0, HEIGHT // 2 - (zeit_text.get_height() // 2)))
-    screen.blit(runden_text, (0, HEIGHT // 2 + 10))
-    pygame.display.flip()
-    pygame.time.wait(3000)
+    game_over = game_utils.Gameover(game.vergangeneZeit, game.rounds, FONT)
+    game_over.show(screen)
 
 def main():
     spiel()
