@@ -108,6 +108,8 @@ class Game:
                 self.light.speed = (2.5*(self.score**2) + 250) # Kurve damit der Ball schneller wird
             else:
                 self.running = False
+        elif event.type == pygame.QUIT:
+            self.running = False
 
 class Gameover:
     def __init__(self, endzeit, rounds, font):
