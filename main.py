@@ -16,8 +16,6 @@ def spiel():
         dt = clock.tick(FPS) / 1000  # Sekunden seit letztem Frame
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                game.running = False
             game.handle_input(event)
 
         game.update(dt)
