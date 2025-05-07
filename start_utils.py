@@ -12,12 +12,21 @@ class Home:
         self.width = width
         self.height = height
         self.font = font
+        self.running = True
 
-    def show(self, screen):
-        pass
+    def show(self, surface):
+        surface.fill(WHITE)
+
+        willkommen_text = self.font.render('Herzlich Willkommen!', True, BLACK)
+        optionen_text = self.font.render('Drücken sie Enter, um das Spiel zu starten.', True, BLACK)
+
+        surface.blit(willkommen_text, (10, 50))
+        surface.blit(optionen_text, (10, 50 + ((optionen_text.get_height() + 10)*1)))
 
     def input_handler(self, event):
-        pass
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+            self.running = False
+
 
     def update(self):
         pass
