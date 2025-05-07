@@ -7,6 +7,14 @@ GREEN = (50, 255, 50)
 RED = (255, 0, 0)
 BLUE = (0, 100, 255)
 
+testliste = [
+    (2312, "asdfas", '24-01-01'),
+    (2312, "sdff", '24-01-01'),
+    (2312, "dd", '24-01-01'),
+    (2312, "gadsghwwe", '24-01-01'),
+    (2312, "asdcasdfghasd", '24-01-01'),
+]
+
 class Home:
     def __init__(self, width, height, font):
         self.width = width
@@ -33,13 +41,14 @@ class Home:
 
 
 class Highscore:
-    def __init__(self, x, y, highscorelist):
+    def __init__(self, x, y, highscorelist, font):
         self.x = x
         self.y = y
         self.scorelist = highscorelist
+        self.font = font
         self.textlist = []
     
     def show(self):
         for eintrag in self.scorelist:
-            pass
+            tablerow = self.font.render(f'')
     
