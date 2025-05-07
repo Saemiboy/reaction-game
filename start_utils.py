@@ -16,7 +16,7 @@ class Home:
     def show(self, screen):
         pass
 
-    def event_handler(self, event):
+    def input_handler(self, event):
         pass
 
     def update(self):
