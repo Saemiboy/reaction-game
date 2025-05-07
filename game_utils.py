@@ -1,15 +1,6 @@
 import pygame
 import random
 
-# --- Initialisierung ---
-pygame.init()
-WIDTH, HEIGHT = 600, 600
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Stop the Light")
-clock = pygame.time.Clock()
-FONT = pygame.font.SysFont(None, 36)
-FPS = 60
-
 # --- Farben ---
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -18,7 +9,6 @@ RED = (255, 0, 0)
 BLUE = (0, 100, 255)
 
 # --- Klassen ---
-
 class TargetZone:
     def __init__(self, x, width):
         self.x = x
@@ -64,9 +54,12 @@ class LightBar:
 
 
 class Game:
-    def __init__(self):
-        self.light = LightBar(WIDTH)
-        self.gameZone = GameZone(WIDTH)
+    def __init__(self, width, height, font):
+        self.width = width
+        self.height = height
+        self.font = font
+        self.light = LightBar(self.width)
+        self.gameZone = GameZone(self.width)
         self.score = 0
         self.rounds = 0
         self.max_rounds = 5
@@ -76,7 +69,7 @@ class Game:
         self.reset_target()
 
     def reset_target(self):
-        target_x = random.randint(100, WIDTH - 150)
+        target_x = random.randint(100, self.width - 150)
         target_width = random.randint(40, 100)
         self.target = TargetZone(target_x, target_width)
         self.light.x = 0 if self.rounds % 2 == 1 else self.gameZone.width
@@ -96,13 +89,13 @@ class Game:
         self.target.draw(surface)
         self.light.draw(surface)
 
-        score_text = FONT.render(f"Score: {self.score}", True, BLACK)
+        score_text = self.font.render(f"Score: {self.score}", True, BLACK)
         surface.blit(score_text, (10, 10))
 
-        zeit_text = FONT.render(f'Vergangene Zeit: {self.vergangeneZeit}', True, BLACK)
+        zeit_text = self.font.render(f'Vergangene Zeit: {self.vergangeneZeit}', True, BLACK)
         surface.blit(zeit_text, (100, 10))
 
-        round_text = FONT.render(f"Round: {self.rounds}/{self.max_rounds}", True, BLACK)
+        round_text = self.font.render(f"Round: {self.rounds}/{self.max_rounds}", True, BLACK)
         surface.blit(round_text, (10, 50))
 
     def handle_input(self, event):
@@ -119,31 +112,4 @@ class Game:
 
 # --- Hauptspielschleife ---
 
-def main():
-    game = Game()
-    while game.running:
-        dt = clock.tick(FPS) / 1000  # Sekunden seit letztem Frame
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                game.running = False
-            game.handle_input(event)
-
-        game.update(dt)
-        game.draw(screen)
-        pygame.display.flip()
-
-    # Spielende
-    screen.fill(WHITE)
-    end_text = FONT.render(f"Game Over!", True, BLUE)
-    zeit_text = FONT.render(f'Benötigte Zeit: {game.vergangeneZeit}S', True, BLUE)
-    runden_text = FONT.render(f'Anzahl benötigter Runden: {game.rounds} Runden', True, BLUE)
-    screen.blit(end_text, (0, HEIGHT // 2 - end_text.get_height() - 10))
-    screen.blit(zeit_text, (0, HEIGHT // 2 - (zeit_text.get_height() // 2)))
-    screen.blit(runden_text, (0, HEIGHT // 2 + 10))
-    pygame.display.flip()
-    pygame.time.wait(3000)
-    pygame.quit()
-
-if __name__ == "__main__":
-    main()
