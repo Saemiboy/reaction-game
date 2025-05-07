@@ -12,4 +12,12 @@ class Home:
         self.width = width
         self.height = height
         self.font = font
-        
+
+    def show(self, screen):
+        pass
+
+    def event_handler(self, event):
+        pass
+
+    def update(self):
+        pass
