@@ -40,6 +40,6 @@ class Highscore:
         self.textlist = []
     
     def show(self):
-        pass
-
+        for eintrag in self.scorelist:
+            pass
     
