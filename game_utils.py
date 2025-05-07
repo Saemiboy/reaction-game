@@ -127,6 +127,5 @@ class Gameover:
         pygame.time.wait(3000)
 
 
-# --- Hauptspielschleife ---
 
 
