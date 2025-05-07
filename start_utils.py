@@ -30,3 +30,16 @@ class Home:
 
     def update(self):
         pass
+
+
+class Highscore:
+    def __init__(self, x, y, highscorelist):
+        self.x = x
+        self.y = y
+        self.scorelist = highscorelist
+        self.textlist = []
+    
+    def show(self):
+        pass
+
+    

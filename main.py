@@ -53,6 +53,8 @@ def start():
         start.show(screen)
         pygame.display.flip()
 
+
+
 def main():
     global mainswitch
     while mainswitch:
