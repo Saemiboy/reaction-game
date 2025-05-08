@@ -62,15 +62,15 @@ class Game:
         self.gameZone = GameZone(self.width)
         self.score = 0
         self.rounds = 0
-        self.max_rounds = 5
+        self.max_rounds = 10
         self.running = True
         self.startzeit = pygame.time.get_ticks()
         self.vergangeneZeit = 0
         self.reset_target()
 
     def reset_target(self):
-        target_x = random.randint(100, self.width - 150)
-        target_width = random.randint(40, 100)
+        target_x = random.randint(100, self.width - 160)
+        target_width = (43680//(self.score+47))-760 # Kurve für die Berechnung der nächsten Breite
         self.target = TargetZone(target_x, target_width)
         self.light.x = 0 if self.rounds % 2 == 1 else self.gameZone.width
 
