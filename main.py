@@ -12,6 +12,14 @@ FONT = pygame.font.SysFont(None, 36)
 FPS = 60
 mainswitch = True
 
+testliste = [
+    (2312, "asdfas", '24-01-01'),
+    (2312, "sdff", '24-01-01'),
+    (2312, "dd", '24-01-01'),
+    (2312, "gadsghwwe", '24-01-01'),
+    (2312, "asdcasdfghasd", '24-01-01'),
+]
+
 def spiel():
     global mainswitch
     if not mainswitch:
@@ -39,7 +47,7 @@ def spiel():
 def start():
     global mainswitch
 
-    start = start_utils.Home(WIDTH, HEIGHT, FONT)
+    start = start_utils.Home(WIDTH, HEIGHT, FONT, testliste)
     while start.running:
         for event in pygame.event.get():
             start.input_handler(event)
