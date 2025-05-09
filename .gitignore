@@ -5,3 +5,5 @@ __pycache__/
 
 test1.py
 db_manipulater.py
+
+.env
