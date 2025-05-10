@@ -1,5 +1,29 @@
 import pymysql
 from sshtunnel import SSHTunnelForwarder
-from dotenv import load_dotenv
+
+class DBClient:
+    def __init__(self, ssh_host, ssh_user, ssh_pw,
+                 db_host, db_port, db_user, db_pw, db_name, db_table,
+                 local_bind_port=3307, ssh_port=22):
+        
+        self.server = SSHTunnelForwarder(
+            (ssh_host, ssh_port),
+            ssh_username=ssh_user,
+            ssh_password=ssh_pw,
+            remote_bind_address=(db_host, db_port),
+            local_bind_address=('127.0.0.1', local_bind_port)
+        )
+        self.server.start()
+
+        self.connection = pymysql.connect(
+            host=db_host,
+            port=self.server.local_bind_port,
+            user=db_user,
+            password=db_pw,
+            database=db_name,
+        )
+        self.table = db_table
+
+
 
 
