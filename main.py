@@ -1,6 +1,7 @@
 import pygame
 import game_utils
 import start_utils
+from db_utils import DBClient
 
 # --- Initialisierung ---
 pygame.init()
@@ -11,6 +12,7 @@ clock = pygame.time.Clock()
 FONT = pygame.font.SysFont(None, 36)
 FPS = 60
 mainswitch = True
+client = DBClient()
 
 testliste = [
     (2312, "asdfas", '24-01-01'),
@@ -43,6 +45,7 @@ def spiel():
     # Spielende
     game_over = game_utils.Gameover(game.vergangeneZeit, game.rounds, FONT)
     game_over.show(screen)
+    client.insert_game((1, game.rounds, game.vergangeneZeit), spieler=False)
 
 def start():
     global mainswitch
