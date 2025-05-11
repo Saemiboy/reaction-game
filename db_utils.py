@@ -66,11 +66,12 @@ class DBClient:
             self.server.stop()
 
 
-client = DBClient()
+if __name__ == "__main__":
+    client = DBClient()
 
-client.insert_game((1, 2342, 23.55))
+    client.insert_game((1, 2342, 23.55))
 
-client.close()
+    client.close()
 
 
 
