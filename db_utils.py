@@ -68,13 +68,13 @@ class DBClient:
         print('Server Verbindung gestoppt.')
 
     def fetch_highscore(self):
-        sql1 = f"SELECT sp.Score, sp.Zeitbenoetigt, COALESCE(s.Benutzername, g.Benutzername) AS Benutzername FROM {self.table} sp LEFT JOIN Spieler s ON sp.SpielerID = s.SpielerID LEFT JOIN Gaeste g ON sp.GaesteID = g.GaesteID ORDER BY sp.Score ASC, sp.Zeitbenoetigt ASC LIMIT 10"
+        sql1 = f"SELECT sp.Score, sp.Zeitbenoetigt, COALESCE(s.Benutzername, g.Benutzername) AS Benutzername, sp.Datum FROM {self.table} sp LEFT JOIN Spieler s ON sp.SpielerID = s.SpielerID LEFT JOIN Gaeste g ON sp.GaesteID = g.GaesteID ORDER BY sp.Score ASC, sp.Zeitbenoetigt ASC LIMIT 10"
         
         with self.connection.cursor() as cursor:
             cursor.execute(sql1)
             highscore = cursor.fetchall()
 
-        converted_highscore = [(a, float(b), c) for a, b, c in highscore]
+        converted_highscore = [(a, float(b), c, str(d)) for a, b, c, d in highscore]
         
         print(converted_highscore)
         return converted_highscore

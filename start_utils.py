@@ -15,7 +15,7 @@ class Home:
         self.height = height
         self.font = font
         self.running = True
-        self.highscore = Tabelle(10, 150, highscorelist, self.font, ("Score", "Name", "Datum"))
+        self.highscore = Tabelle(10, 150, highscorelist, self.font, ("Score", "Zeit", "Name", "Datum"))
 
     def show(self, surface):
         surface.fill(WHITE)

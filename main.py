@@ -38,7 +38,7 @@ def spiel():
     # Spielende
     game_over = game_utils.Gameover(game.vergangeneZeit, game.rounds, FONT)
     game_over.show(screen)
-    client.insert_game((1, game.rounds, game.vergangeneZeit), spieler=False)
+    client.insert_game((1, game.rounds, game.vergangeneZeit), spieler=True)
 
 def start():
     global mainswitch
