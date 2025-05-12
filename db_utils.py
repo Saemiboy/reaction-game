@@ -81,7 +81,7 @@ class DBClient:
 
 
 
-
+# Testklausel
 if __name__ == "__main__":
     client = DBClient()
     client.fetch_highscore()
