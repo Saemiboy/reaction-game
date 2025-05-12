@@ -2,7 +2,6 @@ import pymysql
 from sshtunnel import SSHTunnelForwarder
 from dotenv import load_dotenv
 import os
-from decimal import Decimal
 
 load_dotenv()
 
