@@ -40,3 +40,7 @@ class InputBox:
     def draw(self, screen):
         screen.blit(self.txt_surface, (self.rect.x + 5, self.rect.y + 5))
         pygame.draw.rect(screen, self.color, self.rect, 2)
+
+class Login:
+    def __init__(self):
+        pass
