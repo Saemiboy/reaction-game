@@ -93,7 +93,7 @@ class Game:
         surface.blit(score_text, (10, 10))
 
         zeit_text = self.font.render(f'Vergangene Zeit: {self.vergangeneZeit}', True, BLACK)
-        surface.blit(zeit_text, (100, 10))
+        surface.blit(zeit_text, (150, 10))
 
         round_text = self.font.render(f"Round: {self.rounds}/{self.max_rounds}", True, BLACK)
         surface.blit(round_text, (10, 50))
