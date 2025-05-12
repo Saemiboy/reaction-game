@@ -2,6 +2,7 @@ import pymysql
 from sshtunnel import SSHTunnelForwarder
 from dotenv import load_dotenv
 import os
+from decimal import Decimal
 
 load_dotenv()
 
@@ -64,13 +65,26 @@ class DBClient:
             self.connection.close()
         if self.server:
             self.server.stop()
+        print('Server Verbindung gestoppt.')
+
+    def fetch_highscore(self):
+        sql1 = f"SELECT sp.Score, sp.Zeitbenoetigt, COALESCE(s.Benutzername, g.Benutzername) AS Benutzername FROM {self.table} sp LEFT JOIN Spieler s ON sp.SpielerID = s.SpielerID LEFT JOIN Gaeste g ON sp.GaesteID = g.GaesteID ORDER BY sp.Score ASC, sp.Zeitbenoetigt ASC LIMIT 10"
+        
+        with self.connection.cursor() as cursor:
+            cursor.execute(sql1)
+            highscore = cursor.fetchall()
+
+        converted_highscore = [(a, float(b), c) for a, b, c in highscore]
+        
+        print(converted_highscore)
+        return converted_highscore
+
+
 
 
 if __name__ == "__main__":
     client = DBClient()
-
-    client.insert_game((1, 2342, 23.55))
-
+    client.fetch_highscore()
     client.close()
 
 

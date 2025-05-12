@@ -14,13 +14,6 @@ FPS = 60
 mainswitch = True
 client = DBClient()
 
-testliste = [
-    (2312, "asdfas", '24-01-01'),
-    (2312, "sdff", '24-01-01'),
-    (2312, "dd", '24-01-01'),
-    (2312, "gadsghwwe", '24-01-01'),
-    (2312, "asdcasdfghasd", '24-01-01'),
-]
 
 def spiel():
     global mainswitch
@@ -49,8 +42,9 @@ def spiel():
 
 def start():
     global mainswitch
+    highscore = client.fetch_highscore()
 
-    start = start_utils.Home(WIDTH, HEIGHT, FONT, testliste)
+    start = start_utils.Home(WIDTH, HEIGHT, FONT, highscore)
     while start.running:
         for event in pygame.event.get():
             start.input_handler(event)
@@ -75,3 +69,4 @@ def main():
     
 if __name__ == "__main__":
     main()
+    client.close()
