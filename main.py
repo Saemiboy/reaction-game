@@ -5,7 +5,7 @@ from db_utils import DBClient
 
 # --- Initialisierung ---
 pygame.init()
-WIDTH, HEIGHT = 600, 600
+WIDTH, HEIGHT = 700, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Stop the Light")
 clock = pygame.time.Clock()
