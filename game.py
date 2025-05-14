@@ -2,7 +2,6 @@ import pygame
 import game_utils
 import start_utils
 from db_utils import DBClient
-from login_utils import Login
 
 # --- Initialisierung ---
 pygame.init()
@@ -41,20 +40,6 @@ def spiel():
     game_over.show(screen)
     client.insert_game((1, game.rounds, game.vergangeneZeit), spieler=True)
 
-def login():
-    global mainswitch
-    newlogin = Login(FONT)
-    while newlogin.isactive and mainswitch:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                mainswitch = False
-                return
-
-        newlogin.update()
-        newlogin.draw(screen)
-
-        pygame.display.flip()
-
 
 def start():
     global mainswitch
@@ -78,12 +63,11 @@ def start():
 
 def main():
     global mainswitch
-    login()
     while mainswitch:
         start()
         spiel()
+    client.close()
 
     
 if __name__ == "__main__":
     main()
-    client.close()
