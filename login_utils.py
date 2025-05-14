@@ -3,6 +3,7 @@ import pygame
 COLOR_INACTIVE = pygame.Color('lightskyblue3')
 COLOR_ACTIVE = pygame.Color('dodgerblue2')
 BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
 
 class InputBox:
     def __init__(self, x, y, w, h, font, text=''):
@@ -24,7 +25,6 @@ class InputBox:
         if event.type == pygame.KEYDOWN:
             if self.active:
                 if event.key == pygame.K_RETURN:
-                    print(self.text)
                     self.text = ''
                 elif event.key == pygame.K_BACKSPACE:
                     self.text = self.text[:-1]
@@ -42,5 +42,28 @@ class InputBox:
         pygame.draw.rect(screen, self.color, self.rect, 2)
 
 class Login:
-    def __init__(self):
-        pass
+    def __init__(self, font):
+        self.benutzername_input = InputBox(20, 20, 200, 30, font)
+        self.passwort_input = InputBox(20, 60, 200, 30, font)
+        self.isactive = True
+        self.inputboxes = [self.benutzername_input, self.passwort_input]
+
+    def draw(self, surface):
+        surface.fill(WHITE)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                self.isactive = False
+            for box in self.inputboxes:
+                box.handle_event(event)
+
+        for box in self.inputboxes:
+            box.draw(surface)
+
+    def update(self):
+        for box in self.inputboxes:
+            box.update()
+
+        
