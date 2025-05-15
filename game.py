@@ -1,29 +1,24 @@
 import pygame
-import game_utils
-import start_utils
+from game_utils import Game, Gameover
+from start_utils import Home
 from db_utils import DBClient
-from login_utils import TkinterLogin
 
-# --- Initialisierung ---
-pygame.init()
-FONT = pygame.font.SysFont(None, 36)
+# --- Initialisierung Muss alles auf None setzen damit alles im gleichen Thread abläuft da mit tkinter und pygame zusammen läuft---
+FONT = None
 WIDTH, HEIGHT = 700, 600
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Stop the Light")
-clock = pygame.time.Clock()
-FONT = pygame.font.SysFont(None, 36)
+screen = None
+clock = None
+FONT = None
 FPS = 60
 mainswitch = True
-client = DBClient()
-userid = None
-spieler = None
+client = None
 
 
-def spiel():
-    global mainswitch, spieler, userid
+def spiel(userid, spieler):
+    global mainswitch
     if not mainswitch:
         return
-    game = game_utils.Game(WIDTH, HEIGHT, FONT)
+    game = Game(WIDTH, HEIGHT, FONT)
     while game.running:
         dt = clock.tick(FPS) / 1000  # Sekunden seit letztem Frame
 
@@ -40,16 +35,16 @@ def spiel():
         pygame.display.flip()
 
     # Spielende
-    game_over = game_utils.Gameover(game.vergangeneZeit, game.rounds, FONT)
+    game_over = Gameover(game.vergangeneZeit, game.rounds, FONT)
     game_over.show(screen)
     client.insert_game((userid, game.rounds, game.vergangeneZeit), spieler=spieler)
 
 
-def start():
+def start(username):
     global mainswitch
     highscore = client.fetch_highscore()
 
-    start = start_utils.Home(WIDTH, HEIGHT, FONT, highscore)
+    start = Home(WIDTH, HEIGHT, FONT, highscore, username)
     while start.running:
         for event in pygame.event.get():
             start.input_handler(event)
@@ -63,29 +58,21 @@ def start():
         start.show(screen)
         pygame.display.flip()
 
-def login():
-    global userid, spieler
-    newlogin = TkinterLogin()
-    answer = newlogin.show()
-
-    if answer[0] == 'Guest':
-        client.get_GaesteID(answer[2])
-        spieler = False
-    else:
-        client.get_SpielerID(answer[2])
-        spieler = True
-
-
-
-
-def main_game():
-    global mainswitch
-    login()
+def main_game(userid, username, spieler):
+    global mainswitch, FONT, screen, clock, client
+    
+    # Initialisierung in der Funktion damit dies nicht früher schon geschieht
+    pygame.init()
+    FONT = pygame.font.SysFont(None, 36)
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Stop the Light")
+    clock = pygame.time.Clock()
+    client = DBClient()
 
     while mainswitch:
-        start()
-        spiel()
+        start(username)
+        spiel(userid, spieler)
     client.close()
 
-if __name__ == "__main__":
-    main_game()
+if __name__ == '__main__':
+    main_game(2, 'Sanguel', True)

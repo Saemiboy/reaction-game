@@ -10,17 +10,18 @@ BLUE = (0, 100, 255)
 
 
 class Home:
-    def __init__(self, width, height, font, highscorelist):
+    def __init__(self, width, height, font, highscorelist, username):
         self.width = width
         self.height = height
         self.font = font
         self.running = True
+        self.username = username
         self.highscore = Tabelle(10, 150, highscorelist, self.font, ("Score", "Zeit", "Name", "Datum"))
 
     def show(self, surface):
         surface.fill(WHITE)
 
-        willkommen_text = self.font.render('Herzlich Willkommen!', True, BLACK)
+        willkommen_text = self.font.render(f'Herzlich Willkommen! {self.username}', True, BLACK)
         optionen_text = self.font.render('Drücken sie Enter, um das Spiel zu starten.', True, BLACK)
 
         surface.blit(willkommen_text, (10, 50))
