@@ -1,5 +1,4 @@
 from login_utils import TkinterLogin
-from db_utils import DBClient
 
 def login():
     newlogin = TkinterLogin()

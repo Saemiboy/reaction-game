@@ -62,6 +62,8 @@ def main_game(userid, username, spieler):
     global mainswitch, FONT, screen, clock, client
     
     # Initialisierung in der Funktion damit dies nicht früher schon geschieht
+    # Pygame soll nicht gleichzeitig wie tkinter laufen
+    # wenn ein import gemacht wird würde alles oben schon ausgeführt werden.
     pygame.init()
     FONT = pygame.font.SysFont(None, 36)
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -74,5 +76,6 @@ def main_game(userid, username, spieler):
         spiel(userid, spieler)
     client.close()
 
+# Testklausel
 if __name__ == '__main__':
     main_game(2, 'Sanguel', True)

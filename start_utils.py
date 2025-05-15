@@ -7,8 +7,6 @@ GREEN = (50, 255, 50)
 RED = (255, 0, 0)
 BLUE = (0, 100, 255)
 
-
-
 class Home:
     def __init__(self, width, height, font, highscorelist, username):
         self.width = width
@@ -65,7 +63,3 @@ class Tabelle:
         self.zeichne_zeile(self.header, self.y, surface, farbe=RED)
         for i, zeile in enumerate(self.scorelist):
             self.zeichne_zeile(zeile, (self.y + 40) + i * 30, surface)
-
-
-
-    
