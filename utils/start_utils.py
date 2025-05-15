@@ -32,9 +32,6 @@ class Home:
             self.running = False
 
 
-    def update(self):
-        pass
-
 
 class Tabelle:
     """
