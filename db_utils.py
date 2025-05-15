@@ -2,6 +2,7 @@ import pymysql
 from sshtunnel import SSHTunnelForwarder
 from dotenv import load_dotenv
 import os
+import bcrypt
 
 load_dotenv()
 
@@ -75,8 +76,34 @@ class DBClient:
 
         converted_highscore = [(a, float(b), c, str(d)) for a, b, c, d in highscore]
         
-        print(converted_highscore, sql1)
+        print(sql1)
         return converted_highscore
+    
+    def register_user(self, userdata):
+        pw: str = userdata[1]
+        pw_hashed = bcrypt.hashpw(pw.encode(), bcrypt.gensalt())
+        data = (userdata[0][0], userdata[0][1], userdata[0][2], pw_hashed)
+        table = "Spieler"
+        sql = f"INSERT INTO `{table}`(`SpielerID`, `Vorname`, `Name`, `Benutzername`, `Passwort`, `Erstellungsdatum`) VALUES (Null, %s, %s, %s, %s, NOW())"
+
+        with self.connection.cursor() as cursor:
+            cursor.execute(sql, data)
+        self.connection.commit()
+        print(f'Neuer Spieler erfolgreich registriert. Spieler: {data} \nsql: {sql}')
+
+    def check_password(self, userID, pw: str):
+        table = 'Spieler'
+        encoded_pw = pw.encode()
+        sql = f'SELECT Passwort FROM {table} WHERE SpielerID = {userID}'
+        with self.connection.cursor() as cursor:
+            cursor.execute(sql)
+            hashed_pw = cursor.fetchone()[0].encode()
+            if bcrypt.checkpw(encoded_pw, hashed_pw):
+                return True
+            else:
+                return False
+
+
 
 
 
@@ -84,6 +111,8 @@ class DBClient:
 if __name__ == "__main__":
     client = DBClient()
     client.fetch_highscore()
+    # client.register_user((('Aneglina', 'Meile', 'Sanguel'), 'dinimamiischgay'))
+    print(client.check_password(2, 'dinimamiischgay'))
     client.close()
 
 
