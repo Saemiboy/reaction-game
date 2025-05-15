@@ -129,6 +129,27 @@ class DBClient:
         self.connection.commit()
         print(f"Neuer Gast hinzugefügt: {guestname}\nsql: {sql}")
         
+    def get_SpielerID(self, username):
+        table = "Spieler"
+        sql = f"SELECT SpielerID FROM {table} WHERE Benutzername = %s"
+        data = (username)
+
+        with self.connection.cursor() as cursor:
+            cursor.execute(sql, data)
+            userid = cursor.fetchone()[0]
+        
+        return userid
+    
+    def get_GaesteID(self, username):
+        table = "Gaeste"
+        sql = f"SELECT GaesteID FROM {table} WHERE Benutzername = %s"
+        data = (username)
+
+        with self.connection.cursor() as cursor:
+            cursor.execute(sql, data)
+            gaesteid = cursor.fetchone()[0]
+
+        return gaesteid
 
 
 
