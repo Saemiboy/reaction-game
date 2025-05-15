@@ -13,7 +13,7 @@ class TargetZone:
     def __init__(self, x, width):
         self.x = x
         self.width = width
-        self.y = 90
+        self.y = 150
         self.height = 20
 
     def draw(self, surface):
@@ -25,7 +25,7 @@ class GameZone:
         self.x = 0
         self.width = width
         self.height = 20
-        self.y = 90
+        self.y = 150
 
     def draw(self, surface):
         pygame.draw.rect(surface, BLACK, (self.x, self.y, self.width, self.height))
@@ -34,7 +34,7 @@ class GameZone:
 class LightBar:
     def __init__(self, width):
         self.x = 0
-        self.y = 90
+        self.y = 150
         self.radius = 5
         self.speed = 250  # Pixel pro Sekunde
         self.direction = 1  # 1 = rechts, -1 = links
