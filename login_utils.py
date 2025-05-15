@@ -93,6 +93,7 @@ class TkinterLogin:
             self.show_error("Benutzername existiert bereits.")
             return 
         self.result = ((None, None, gastname), None)
+        self.client.add_guest(gastname)
         self.show_error(f"Herzlich Willkommen {gastname}")
         self.root.destroy()
 

@@ -119,6 +119,16 @@ class DBClient:
             else:
                 return True
 
+    def add_guest(self, guestname):
+        data = (guestname)
+        table = "Gaeste"
+        sql = f"INSERT INTO `{table}`(`GaesteID`, `Benutzername`) VALUES (Null, %s)"
+
+        with self.connection.cursor() as cursor:
+            cursor.execute(sql, data)
+        self.connection.commit()
+        print(f"Neuer Gast hinzugefügt: {guestname}\nsql: {sql}")
+        
 
 
 
