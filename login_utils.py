@@ -1,4 +1,5 @@
 import tkinter as tk
+from db_utils import DBClient
 
 """
 Für das folgende Tkinter login wurde KI verwendet. 
@@ -7,6 +8,7 @@ class TkinterLogin:
     def __init__(self):
         # Speichert das Ergebnis des Login-/Registrierungsdialogs
         self.result = None
+        self.client = DBClient()
 
     def center_window(self, width, height):
         # Zentriert das Fenster auf dem Bildschirm
@@ -123,6 +125,7 @@ class TkinterLogin:
                 self.show_error("Bitte füllen Sie alle Felder aus.")
                 return
             self.result = ((firstname, lastname, username), password)
+            self.client.register_user(self.result)
             self.root.destroy()
 
         btn_frame = tk.Frame(self.root)
@@ -167,7 +170,7 @@ class TkinterLogin:
 
         self.root.mainloop()
         # Gibt das Ergebnis zurück: ((Vorname, Nachname, Benutzername), Passwort)
-        return self.result
+        return self.result[0]
 
 
 login = TkinterLogin()
