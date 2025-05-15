@@ -89,6 +89,9 @@ class TkinterLogin:
         if not gastname:
             self.show_error("Bitte geben Sie einen Benutzernamen ein.")
             return
+        if not self.client.check_username_uniqe(gastname):
+            self.show_error("Benutzername existiert bereits.")
+            return 
         self.result = ((None, None, gastname), None)
         self.show_error(f"Herzlich Willkommen {gastname}")
         self.root.destroy()
@@ -130,6 +133,9 @@ class TkinterLogin:
             if not firstname or not lastname or not username or not password:
                 self.show_error("Bitte füllen Sie alle Felder aus.")
                 return
+            if not self.client.check_username_uniqe(username):
+                self.show_error("Benutzername existiert bereits")
+                return 
             self.result = ((firstname, lastname, username), password)
             self.client.register_user(self.result)
             self.root.destroy()

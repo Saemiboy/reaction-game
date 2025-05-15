@@ -103,7 +103,21 @@ class DBClient:
                 return True
             else:
                 return False
-
+    
+    def check_username_uniqe(self, benutzername):
+        data = (benutzername)
+        tables = ('Spieler', 'Gaeste')
+        sqlspieler = f'SELECT COUNT(*) FROM {tables[0]} WHERE Benutzername = %s'
+        sqlgaeste = f'SELECT COUNT(*) FROM {tables[1]} WHERE Benutzername = %s'
+        with self.connection.cursor() as cursor:
+            cursor.execute(sqlspieler, data)
+            spielerbenutzer = cursor.fetchone()[0]
+            cursor.execute(sqlgaeste, data)
+            gaestebenutzer = cursor.fetchone()[0]
+            if spielerbenutzer > 0 or gaestebenutzer > 0:
+                return False
+            else:
+                return True
 
 
 
