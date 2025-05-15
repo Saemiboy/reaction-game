@@ -53,8 +53,7 @@ def start(username):
                 mainswitch = False
                 pygame.quit()
                 return
-
-        start.update()
+            
         start.show(screen)
         pygame.display.flip()
 

@@ -14,7 +14,7 @@ class Home:
         self.font = font
         self.running = True
         self.username = username
-        self.highscore = Tabelle(10, 150, highscorelist, self.font, ("Score", "Zeit", "Name", "Datum"))
+        self.highscore = Tabelle(10, 150, highscorelist, self.font, ("Score", "Zeit", "Name", "Datum"), "Highscore")
 
     def show(self, surface):
         surface.fill(WHITE)
@@ -38,13 +38,14 @@ class Tabelle:
     Folgende Veranschaulichung von einer Tabelle in pygame ist KI-generiert. Es wurde von ChatGPT gemacht.
     Prompt: "Ich möchte eine Highscoretabelle in pygame darstellen und habe folgende Daten zur verfügung:"
     """
-    def __init__(self, x, y, highscorelist, font, header):
+    def __init__(self, x, y, highscorelist, font, header, titel):
         self.x = x
         self.y = y
         self.scorelist = highscorelist
         self.font = font
         self.textlist = []
         self.header = header
+        self.titel = titel
         # Spaltenbreiten berechnen
         spalten = list(zip(*([self.header] + self.scorelist)))
         self.breiten = [max(self.font.size(str(e))[0] for e in spalte) + 20 for spalte in spalten]
@@ -57,6 +58,8 @@ class Tabelle:
             start_x += self.breiten[i]
 
     def show(self, surface):
-        self.zeichne_zeile(self.header, self.y, surface, farbe=RED)
+        titeltext = self.font.render(self.titel, True, GREEN)
+        surface.blit(titeltext, (self.x, self.y))
+        self.zeichne_zeile(self.header, self.y+40, surface, farbe=RED)
         for i, zeile in enumerate(self.scorelist):
-            self.zeichne_zeile(zeile, (self.y + 40) + i * 30, surface)
+            self.zeichne_zeile(zeile, (self.y + 40) + (i+1) * 30, surface)
