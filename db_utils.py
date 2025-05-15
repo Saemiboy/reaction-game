@@ -127,7 +127,8 @@ if __name__ == "__main__":
     client = DBClient()
     client.fetch_highscore()
     # client.register_user((('Aneglina', 'Meile', 'Sanguel'), 'dinimamiischgay'))
-    print(client.check_password(2, 'dinimamiischgay'))
+    # print(client.check_password(2, 'dinimamiischgay'))
+    # print(client.check_username_uniqe())
     client.close()
 
 
