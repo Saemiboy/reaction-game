@@ -44,7 +44,7 @@ def start(username):
     global mainswitch
     highscore = client.fetch_highscore()
 
-    start = Home(WIDTH, HEIGHT, FONT, highscore, username)
+    start = Home(WIDTH, HEIGHT, FONT, highscore, username, client)
     while start.running:
         for event in pygame.event.get():
             start.input_handler(event)

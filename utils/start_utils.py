@@ -8,22 +8,26 @@ RED = (255, 0, 0)
 BLUE = (0, 100, 255)
 
 class Home:
-    def __init__(self, width, height, font, highscorelist, username):
+    def __init__(self, width, height, font, highscorelist, username, client):
         self.width = width
         self.height = height
         self.font = font
+        self.client = client
         self.running = True
         self.username = username
-        self.highscore = Tabelle(10, 150, highscorelist, self.font, ("Score", "Zeit", "Name", "Datum"), "Highscore")
+        self.highscore = Tabelle(10, 180, highscorelist, self.font, ("Runden", "Zeit", "Benutzername", "Datum"), "Highscore")
+        
 
     def show(self, surface):
         surface.fill(WHITE)
 
-        willkommen_text = self.font.render(f'Herzlich Willkommen! {self.username}', True, BLACK)
+        willkommen_text = self.font.render(f'Herzlich Willkommen {self.username}!', True, BLACK)
         optionen_text = self.font.render('Drücken sie Enter, um das Spiel zu starten.', True, BLACK)
+        ziel_text = self.font.render('Die Spacebar drücken wenn rot innerhalb grün ist.', True, BLACK)
 
         surface.blit(willkommen_text, (10, 50))
         surface.blit(optionen_text, (10, 50 + ((optionen_text.get_height() + 10)*1)))
+        surface.blit(ziel_text, (10, 50 + ((ziel_text.get_height() + 10)*2)))
 
         self.highscore.show(surface)
 
@@ -58,7 +62,7 @@ class Tabelle:
             start_x += self.breiten[i]
 
     def show(self, surface):
-        titeltext = self.font.render(self.titel, True, GREEN)
+        titeltext = self.font.render(self.titel, True, BLUE)
         surface.blit(titeltext, (self.x, self.y))
         self.zeichne_zeile(self.header, self.y+40, surface, farbe=RED)
         for i, zeile in enumerate(self.scorelist):
