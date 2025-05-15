@@ -184,7 +184,3 @@ class TkinterLogin:
         self.root.mainloop()
         # Gibt das Ergebnis zurück: ((Vorname, Nachname, Benutzername), Passwort)
         return self.result[0]
-
-
-login = TkinterLogin()
-print(login.show())
