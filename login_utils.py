@@ -22,7 +22,6 @@ class TkinterLogin:
     def show_error(self, message):
         # Zeigt eine Fehlermeldung zentriert im Fenster an
         error_win = tk.Toplevel(self.root)
-        error_win.title("Fehler")
         error_win.resizable(False, False)
         error_win.update_idletasks()
         # Fenstergröße
