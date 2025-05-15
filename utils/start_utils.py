@@ -8,15 +8,15 @@ RED = (255, 0, 0)
 BLUE = (0, 100, 255)
 
 class Home:
-    def __init__(self, width, height, font, highscorelist, username, client):
+    def __init__(self, width, height, font, highscorelist, highscorelisttoday, username):
         self.width = width
         self.height = height
         self.font = font
-        self.client = client
         self.running = True
         self.username = username
         self.highscore = Tabelle(10, 180, highscorelist, self.font, ("Runden", "Zeit", "Benutzername", "Datum"), "Highscore")
-        
+        self.highscore_today = Tabelle(10, 180, highscorelisttoday, self.font, ("Runden", "Zeit", "Benutzername", "Datum"), "Todays Highscore")
+        self.table_counter = 2
 
     def show(self, surface):
         surface.fill(WHITE)
@@ -24,16 +24,23 @@ class Home:
         willkommen_text = self.font.render(f'Herzlich Willkommen {self.username}!', True, BLACK)
         optionen_text = self.font.render('Drücken sie Enter, um das Spiel zu starten.', True, BLACK)
         ziel_text = self.font.render('Die Spacebar drücken wenn rot innerhalb grün ist.', True, BLACK)
+        pfeilbild = self.font.render('->', True, BLACK)
 
         surface.blit(willkommen_text, (10, 50))
         surface.blit(optionen_text, (10, 50 + ((optionen_text.get_height() + 10)*1)))
         surface.blit(ziel_text, (10, 50 + ((ziel_text.get_height() + 10)*2)))
+        surface.blit(pfeilbild, (550, 550))
 
-        self.highscore.show(surface)
+        if self.table_counter % 2 == 0:
+            self.highscore.show(surface)
+        else:
+            self.highscore_today.show(surface)
 
     def input_handler(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
             self.running = False
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
+            self.table_counter += 1
 
 
 

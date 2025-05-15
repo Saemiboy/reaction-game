@@ -79,6 +79,18 @@ class DBClient:
         print(sql1)
         return converted_highscore
     
+    def fetch_highscore_today(self):
+        sql1 = f"SELECT sp.Score, sp.Zeitbenoetigt, COALESCE(s.Benutzername, g.Benutzername) AS Benutzername, sp.Datum FROM {self.table} sp LEFT JOIN Spieler s ON sp.SpielerID = s.SpielerID LEFT JOIN Gaeste g ON sp.GaesteID = g.GaesteID WHERE sp.Datum = CURRENT_DATE ORDER BY sp.Score ASC, sp.Zeitbenoetigt ASC LIMIT 10"
+        
+        with self.connection.cursor() as cursor:
+            cursor.execute(sql1)
+            highscore_today = cursor.fetchall()
+
+        converted_highscore = [(a, float(b), c, str(d)) for a, b, c, d in highscore_today]
+        
+        print(sql1)
+        return converted_highscore
+    
     def register_user(self, userdata):
         pw: str = userdata[1]
         pw_hashed = bcrypt.hashpw(pw.encode(), bcrypt.gensalt())
