@@ -1,5 +1,5 @@
 import tkinter as tk
-from db_utils import DBClient
+from utils.db_utils import DBClient
 
 """
 Für das folgende Tkinter login wurde KI verwendet. 
