@@ -89,13 +89,13 @@ class Game:
         self.target.draw(surface)
         self.light.draw(surface)
 
-        score_text = self.font.render(f"Score: {self.score}", True, BLACK)
+        score_text = self.font.render(f"Score: {self.rounds}", True, BLACK)
         surface.blit(score_text, (10, 10))
 
         zeit_text = self.font.render(f'Vergangene Zeit: {self.vergangeneZeit}', True, BLACK)
         surface.blit(zeit_text, (150, 10))
 
-        round_text = self.font.render(f"Round: {self.rounds}/{self.max_rounds}", True, BLACK)
+        round_text = self.font.render(f"Round: {self.score}/{self.max_rounds}", True, BLACK)
         surface.blit(round_text, (10, 50))
 
     def handle_input(self, event):
