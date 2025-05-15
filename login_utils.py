@@ -65,7 +65,12 @@ class TkinterLogin:
             # Speichert Benutzername und Passwort und schließt das Fenster
             password = entry_password.get()
             self.result = ((None, None, username), password)
+            if not self.client.check_password(username, password):
+                self.show_error("Passwort ist falsch.")
+                return False
+            self.show_error(f"Herzlich willkommen {username}")
             self.root.destroy()
+            return True
 
         btn_frame = tk.Frame(self.root)
         btn_frame.pack(pady=15)
@@ -85,6 +90,7 @@ class TkinterLogin:
             self.show_error("Bitte geben Sie einen Benutzernamen ein.")
             return
         self.result = ((None, None, gastname), None)
+        self.show_error(f"Herzlich Willkommen {gastname}")
         self.root.destroy()
 
     def on_register(self):

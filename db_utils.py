@@ -91,12 +91,13 @@ class DBClient:
         self.connection.commit()
         print(f'Neuer Spieler erfolgreich registriert. Spieler: {data} \nsql: {sql}')
 
-    def check_password(self, userID, pw: str):
+    def check_password(self, username, pw: str):
         table = 'Spieler'
         encoded_pw = pw.encode()
-        sql = f'SELECT Passwort FROM {table} WHERE SpielerID = {userID}'
+        sql = f'SELECT Passwort FROM {table} WHERE Benutzername = %s'
+        data = (username)
         with self.connection.cursor() as cursor:
-            cursor.execute(sql)
+            cursor.execute(sql, data)
             hashed_pw = cursor.fetchone()[0].encode()
             if bcrypt.checkpw(encoded_pw, hashed_pw):
                 return True
