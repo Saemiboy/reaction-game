@@ -1,7 +1,7 @@
 import pygame
-from game_utils import Game, Gameover
-from start_utils import Home
-from db_utils import DBClient
+from utils.game_utils import Game, Gameover
+from utils.start_utils import Home
+from utils.db_utils import DBClient
 
 # --- Initialisierung Muss alles auf None setzen damit alles im gleichen Thread abläuft da mit tkinter und pygame zusammen läuft---
 FONT = None

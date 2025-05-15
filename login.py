@@ -1,4 +1,4 @@
-from login_utils import TkinterLogin
+from utils.login_utils import TkinterLogin
 
 def login():
     newlogin = TkinterLogin()
