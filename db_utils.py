@@ -57,7 +57,7 @@ class DBClient:
         with self.connection.cursor() as cursor:
             cursor.execute(sql, data)
         self.connection.commit()
-        print(f'Datensatz erfolgreich eingefügt: {data}')
+        print(f'Datensatz erfolgreich eingefügt: {data}, sql: {sql}')
 
     def close(self):
         if self.connection:
@@ -75,7 +75,7 @@ class DBClient:
 
         converted_highscore = [(a, float(b), c, str(d)) for a, b, c, d in highscore]
         
-        print(converted_highscore)
+        print(converted_highscore, sql1)
         return converted_highscore
 
 

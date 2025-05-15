@@ -61,7 +61,7 @@ def start():
 
 
 
-def main():
+def main_game():
     global mainswitch
     while mainswitch:
         start()
